@@ -1,0 +1,16 @@
+<?php
+$settings = array(
+    'security_salt' => 'LDFmiilYf8Fyw5W10rx4W1KsVrieQCnpBzzpTBWA5vJidQKDx8pMJbmw28R1C4m',
+    'Strategy' => array(
+
+    /*
+        'Facebook' => array(
+            'app_id' => 'APP ID',
+            'app_secret' => 'APP_SECRET'
+        ),
+     */
+
+    ),
+);
+
+return array('lfjopauth' => $settings);

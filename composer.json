@@ -1,0 +1,30 @@
+{
+    "name": "lorenzoferrarajr/lfj-opauth",
+    "description": "LfjOpauth is a Zend Framework 2 module that enables support for many authentication providers through the Opauth framework.",
+    "type": "library",
+    "keywords": [
+        "zf2","authentication","auth","oauth","openid","omniauth","facebook","google","twitter"
+    ],
+    "homepage": "https://github.com/lorenzoferrarajr/LfjOpauth",
+    "authors": [
+        {
+            "name": "Lorenzo Ferrara Junior",
+            "email": "lorenzoferrarajr@gmail.com",
+            "homepage": "http://www.lorenzoferrara.net/"
+        }
+    ],
+    "require": {
+        "php": ">=5.3",
+        "opauth/opauth": "0.4.2"
+    },
+	"suggest": {
+		"opauth/facebook": "Allows Facebook authentication",
+		"opauth/google": "Allows Google authentication",
+		"opauth/twitter": "Allows Twitter authentication"
+	},
+    "autoload": {
+        "classmap": [
+            "./Module.php"
+        ]
+    }
+}
