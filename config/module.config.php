@@ -10,7 +10,8 @@ return array(
     'controllers' => array(
         'invokables' => array(
             'LfjOpauth\Controller\Login'  => 'LfjOpauth\Controller\LoginController',
-            'LfjOpauth\Controller\Logout' => 'LfjOpauth\Controller\LogoutController'
+            'LfjOpauth\Controller\Logout' => 'LfjOpauth\Controller\LogoutController',
+            'LfjOpauth\Controller\Check'  => 'LfjOpauth\Controller\CheckController'
         ),
     ),
     'router' => array(
@@ -55,6 +56,17 @@ return array(
                         '__NAMESPACE__' => 'LfjOpauth\Controller',
                         'controller'    => 'Login',
                         'action'        => 'callback'
+                    )
+                )
+            ),
+            'lfjopauth_check' => array(
+                'type'    => 'Segment',
+                'options' => array(
+                    'route'    => '/user/opauth/check',
+                    'defaults' => array(
+                        '__NAMESPACE__' => 'LfjOpauth\Controller',
+                        'controller'    => 'Check',
+                        'action'        => 'check'
                     )
                 )
             )

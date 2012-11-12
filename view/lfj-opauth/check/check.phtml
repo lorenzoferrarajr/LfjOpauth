@@ -1,0 +1,11 @@
+Q. Are you logged in?<br/>
+R. <?= ( $loggedIn == 1) ? 'yes' : 'no' ?>
+
+<?php if ($loggedIn == 1) { ?>
+<br/><br/>
+Q. What's the data associated with my identity?<br/>
+R. This is the data:<br/>
+<pre>
+<?php var_dump($identity) ?>
+</pre>
+<?php } ?>

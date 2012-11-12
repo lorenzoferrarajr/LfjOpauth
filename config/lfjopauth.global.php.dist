@@ -8,9 +8,10 @@ $settings = array(
             'app_id' => 'APP ID',
             'app_secret' => 'APP_SECRET'
         ),
-     */
+    */
 
     ),
+    'check_controller_enabled' => false
 );
 
 return array('lfjopauth' => $settings);
