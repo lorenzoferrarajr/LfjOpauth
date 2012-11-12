@@ -16,6 +16,9 @@ class LoginController extends AbstractActionController
     public function callbackAction()
     {
    	    $provider = $this->params()->fromRoute('provider');
-        return $this->getServiceLocator()->get('opauth_service')->callback($provider);
+        $this->getServiceLocator()->get('opauth_service')->callback($provider);
+
+        $auth = $this->getServiceLocator()->get('lfjopauth_auth_service');
+        return array('result' => $auth->hasIdentity(), 'provider' => $provider);
     }
 }
