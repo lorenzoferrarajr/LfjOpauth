@@ -21,17 +21,19 @@ class Adapter implements AdapterInterface
 
 		switch($opauth->env['callback_transport']) {
 			case 'session':
-				$response = $_SESSION['opauth'];
-				unset($_SESSION['opauth']);
-				break;
+                if (isset($_SESSION['opauth'])) {
+                    $response = $_SESSION['opauth'];
+                    unset($_SESSION['opauth']);
+                }
+                break;
 			case 'post':
-				echo "post";
-				$response = unserialize(base64_decode($_POST['opauth']));
-				break;
+                if (isset($_POST['opauth']))
+                    $response = unserialize(base64_decode($_POST['opauth']));
+                break;
 			case 'get':
-				echo "get";
-				$response = unserialize(base64_decode($_GET['opauth']));
-				break;
+                if (isset($_GET['opauth']))
+                    $response = unserialize(base64_decode($_GET['opauth']));
+                break;
 		}
 
 		if (!is_array($response) || $response == null) {
@@ -79,6 +81,10 @@ class Adapter implements AdapterInterface
 					$identity = $this->getAuthenticationService()->getIdentity();
 				else
 					$identity = array();
+
+                if (!isset($identity['lfjopauth']) || !is_array($identity['lfjopauth'])) $identity['lfjopauth'] = array();
+                if (!isset($identity['lfjopauth']['opauth']) || !is_array($identity['lfjopauth']['opauth'])) $identity['lfjopauth']['opauth'] = array();
+                if (!isset($identity['lfjopauth']['current_providers']) || !is_array($identity['lfjopauth']['opauth'])) $identity['lfjopauth']['current_providers'] = array();
 
 				$identity['lfjopauth']['opauth'][$provider] = $response;
 
