@@ -10,8 +10,12 @@ class OpauthService implements ServiceLocatorAwareInterface
     private $serviceLocator;
     private $options;
     private $router;
+
     private $loginUrlName;
+    private $loginUrlNameParams;
+
     private $callbackUrlName;
+    private $callbackUrlNameParams;
 
     public function redirect($provider, $oauth_callback)
     {
@@ -72,8 +76,10 @@ class OpauthService implements ServiceLocatorAwareInterface
             $this->setOptions($this->getServiceLocator()->get('lfjopauth_module_options'));
         }
 
-        $this->options['path'] = $this->getRouter()->assemble(array(), array('name' => $this->getLoginUrlName()));
-        $this->options['callback_url'] = $this->getRouter()->assemble(array('provider' => $provider), array('name' => $this->getCallbackUrlName()));
+        $callbackUrlParams = array_replace(array('provider' => $provider), $this->getCallbackUrlNameParams());
+
+        $this->options['path'] = $this->getRouter()->assemble($this->getLoginUrlNameParams(), array('name' => $this->getLoginUrlName()));
+        $this->options['callback_url'] = $this->getRouter()->assemble($callbackUrlParams, array('name' => $this->getCallbackUrlName()));
 
         return $this->options;
     }
@@ -90,6 +96,18 @@ class OpauthService implements ServiceLocatorAwareInterface
         return $this->loginUrlName;
     }
 
+    public function setLoginUrlNameParams($loginUrlNameParams)
+    {
+        $this->loginUrlNameParams = $loginUrlNameParams;
+    }
+
+    public function getLoginUrlNameParams()
+    {
+        if ($this->loginUrlNameParams == null) return array();
+
+        return $this->loginUrlNameParams;
+    }
+
     public function setCallbackUrlName($callbackUrlName)
     {
         $this->callbackUrlName = $callbackUrlName;
@@ -100,6 +118,18 @@ class OpauthService implements ServiceLocatorAwareInterface
         if ($this->callbackUrlName == null) return 'lfjopauth_callback';
 
         return $this->callbackUrlName;
+    }
+
+    public function setCallbackUrlNameParams($callbackUrlNameParams)
+    {
+        $this->callbackUrlNameParams = $callbackUrlNameParams;
+    }
+
+    public function getCallbackUrlNameParams()
+    {
+        if ($this->callbackUrlNameParams == null) return array();
+
+        return $this->callbackUrlNameParams;
     }
 
     public function getServiceLocator()
