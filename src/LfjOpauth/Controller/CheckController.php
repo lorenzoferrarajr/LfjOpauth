@@ -8,9 +8,9 @@ class CheckController extends AbstractActionController
 {
     public function checkAction()
     {
-
         if (!$this->isCheckControllerEnabled()) {
             $this->getResponse()->setStatusCode(404);
+
             return;
         }
 
@@ -28,8 +28,6 @@ class CheckController extends AbstractActionController
     {
         $options = $this->getServiceLocator()->get('lfjopauth_module_options');
         if (!isset($options['check_controller_enabled'])) return false;
-
         return (bool) $options['check_controller_enabled'];
     }
-
 }

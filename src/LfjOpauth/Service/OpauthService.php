@@ -19,12 +19,12 @@ class OpauthService implements ServiceLocatorAwareInterface
 
     public function redirect($provider, $oauth_callback)
     {
-	    $opauth = new Opauth($this->getOptions($provider));
+        $opauth = new Opauth($this->getOptions($provider));
     }
 
     public function callback($provider)
     {
-	    $opauth = new Opauth($this->getOptions($provider), false);
+        $opauth = new Opauth($this->getOptions($provider), false);
 
         $auth = $this->getServiceLocator()->get('lfjopauth_auth_service');
 
@@ -37,7 +37,7 @@ class OpauthService implements ServiceLocatorAwareInterface
 
         if (!$result->isValid()) {
             return array(
-	        	'provider' => $provider,
+                'provider' => $provider,
                 'result' => false,
                 'code' => $result->getCode(),
                 'messages' => $result->getMessages(),
@@ -46,8 +46,8 @@ class OpauthService implements ServiceLocatorAwareInterface
         }
 
         return array(
-        	'provider' => $provider,
-        	'result' => true,
+            'provider' => $provider,
+            'result' => true,
             'code' => $result->getCode(),
             'messages' => $result->getMessages(),
             'debug' => $result
@@ -67,12 +67,13 @@ class OpauthService implements ServiceLocatorAwareInterface
     public function setOptions($options)
     {
         $this->options = $options;
+
         return $this;
     }
 
     public function getOptions($provider)
     {
-		if ($this->options === null || !is_array($this->options)) {
+        if ($this->options === null || !is_array($this->options)) {
             $this->setOptions($this->getServiceLocator()->get('lfjopauth_module_options'));
         }
 
@@ -92,7 +93,6 @@ class OpauthService implements ServiceLocatorAwareInterface
     public function getLoginUrlName()
     {
         if ($this->loginUrlName == null) return 'lfjopauth_login';
-
         return $this->loginUrlName;
     }
 
@@ -104,7 +104,6 @@ class OpauthService implements ServiceLocatorAwareInterface
     public function getLoginUrlNameParams()
     {
         if ($this->loginUrlNameParams == null) return array();
-
         return $this->loginUrlNameParams;
     }
 
@@ -116,7 +115,6 @@ class OpauthService implements ServiceLocatorAwareInterface
     public function getCallbackUrlName()
     {
         if ($this->callbackUrlName == null) return 'lfjopauth_callback';
-
         return $this->callbackUrlName;
     }
 
@@ -128,7 +126,6 @@ class OpauthService implements ServiceLocatorAwareInterface
     public function getCallbackUrlNameParams()
     {
         if ($this->callbackUrlNameParams == null) return array();
-
         return $this->callbackUrlNameParams;
     }
 

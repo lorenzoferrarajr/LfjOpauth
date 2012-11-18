@@ -16,6 +16,7 @@ class LogoutController extends AbstractActionController
     public function logoutAction()
     {
         $auth = $this->getServiceLocator()->get('lfjopauth_auth_service');
+
         return $auth->clearIdentity();
     }
 }
