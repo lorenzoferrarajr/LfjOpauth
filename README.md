@@ -42,13 +42,16 @@ $settings = array(
             'strategy_class' => 'Facebook',
             'strategy_url_name' => 'second_facebook_app'
         )
-    )
+    ),
+    'check_controller_enabled' => false
 );
 
 return array('lfjopauth' => $settings);
 ```
 
 The configuration is pretty much the same as the [Opauth configuration](https://github.com/uzyn/opauth/blob/master/example/opauth.conf.php.default), without the `path` and `callback_url` options, which are handled by the module.
+
+The `check_controller_enabled` flag enables or disables access to `CheckController`.
 
 Login and callback urls
 -----
@@ -69,6 +72,103 @@ For the two demo Facebook application described in the example configuration, yo
 
 as value of the **Website with Facebook Login, Site URL** option.
 
+Custom callback urls
+-----
+
+If you need custom login and/or callback urls (for example containing more parameters), you can code custom routes and controller.
+
+This is the code that defines the `custom_lfjopauth_login` and `custom_lfjopauth_callback` routes (`custom-auth` is the controller alias):
+
+```php
+return array(
+    'router' => array(
+        'routes' => array(
+            'custom_lfjopauth_login' => array(
+                'type'    => 'Segment',
+                'options' => array(
+                    'route'    => '/custom/login/[:provider[/:oauth_callback]]',
+                    'constraints' => array(
+                        'provider'       => '[a-zA-Z][a-zA-Z0-9_-]*',
+                        'oauth_callback' => '[a-zA-Z][a-zA-Z0-9_-]*'
+                    ),
+                    'defaults' => array(
+                        'controller'    => 'custom-auth',
+                        'action'        => 'redirectAndReturn'
+                    )
+                )
+            ),
+            'custom_lfjopauth_callback' => array(
+                'type'    => 'Segment',
+                'options' => array(
+                    'route'    => '/custom/callback/[:provider]',
+                    'constraints' => array(
+                        'provider'  => '[a-zA-Z][a-zA-Z0-9_-]*'
+                    ),
+                    'defaults' => array(
+                        'controller'    => 'custom-auth',
+                        'action'        => 'callback'
+                    )
+                )
+            ),
+            // more code
+        )
+    )
+);
+```
+
+This is the code of the hypothetical controller that manages login and callback actions:
+
+```php
+// [...]
+class AuthController extends AbstractActionController
+{
+    public function redirectAndReturnAction()
+    {
+        // if user is not logged in
+        if (!$this->auth()->hasIdentity())
+        {
+       	    $provider = $this->params()->fromRoute('provider');
+       	    $oauth_callback = $this->params()->fromRoute('oauth_callback');
+            $opauth_service = $this->getServiceLocator()->get('opauth_service');
+
+            // set custom login and callback routes
+            $opauth_service->setLoginUrlName('custom_lfjopauth_login');
+            $opauth_service->setCallbackUrlName('custom_lfjopauth_callback');
+
+            return $opauth_service->redirect($provider, $oauth_callback);
+        }
+
+        return $this->redirect()->toRoute('somewhere_over_the_rainbow');
+    }
+
+    public function callbackAction()
+    {
+        // if user is not logged in
+        if (!$this->auth()->hasIdentity())
+        {
+       	    $provider = $this->params()->fromRoute('provider');
+       	    $opauth_service = $this->getServiceLocator()->get('opauth_service');
+
+            // set custom login and callback routes
+            $opauth_service->setLoginUrlName('custom_lfjopauth_login');
+            $opauth_service->setCallbackUrlName('custom_lfjopauth_callback');
+
+            $opauth_service->callback($provider);
+        }
+	
+        return $this->redirect()->toRoute('somewhere_else_over_the_rainbow');
+    }
+}
+```
+
+Checking login status
+-----
+
+If the `check_controller_enabled` flag is enabled, you will be able to print current session info at this url:
+
+- http://example.com/user/opauth/check
+
+The default value of `check_controller_enabled` is `false`.
 
 Other info
 -----
