@@ -5,6 +5,7 @@
     "keywords": [
         "zf2","authentication","auth","oauth","openid","omniauth","facebook","google","twitter"
     ],
+    "license": "MIT",
     "homepage": "https://github.com/lorenzoferrarajr/LfjOpauth",
     "authors": [
         {

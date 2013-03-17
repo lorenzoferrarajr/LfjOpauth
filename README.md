@@ -176,3 +176,8 @@ Other info
 LfjOpauth uses `Zend\Authentication\AuthenticationService` (alias `lfjopauth_auth_service`) to manage authentication.
 
 The `LfjOpauth\Service\OpauthService` (alias: `opauth_service`) class exposes the `redirect` and `callback` methods which can be used in any controller. An example can be found in the [LfjOpauth\Controller\LoginController](https://github.com/lorenzoferrarajr/LfjOpauth/blob/master/src/LfjOpauth/Controller/LoginController.php) class.
+
+LICENSE
+-----
+
+The files in this archive are released under the MIT license. You can find a copy of this license in [LICENSE.txt](LICENSE.txt).
