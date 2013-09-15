@@ -16,7 +16,7 @@
     ],
     "require": {
         "php": ">=5.3",
-        "opauth/opauth": "0.4.2"
+        "opauth/opauth": "0.4.4"
     },
 	"suggest": {
 		"opauth/facebook": "Allows Facebook authentication",
@@ -24,8 +24,8 @@
 		"opauth/twitter": "Allows Twitter authentication"
 	},
     "autoload": {
-        "classmap": [
-            "./Module.php"
-        ]
+        "psr-0": {
+            "LfjOpauth\\": "src/"
+        }
     }
 }
