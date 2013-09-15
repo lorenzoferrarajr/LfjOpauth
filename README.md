@@ -11,13 +11,55 @@ Introduction
 Installation
 -----
 
-To use the module you need to install [Opauth](http://opauth.org/) and one of it's strategies:
+To use the module you need to:
 
-- [opauth-facebook](https://github.com/uzyn/opauth-facebook)
-- [opauth-twitter](https://github.com/uzyn/opauth-twitter)
-- [more of them...](https://github.com/uzyn)
+- Install the LfjOpauth module using using `composer`
+- Install at least one of the [Opauth](http://opauth.org/) strategies
+- Enable the LfjOpauth module
 
-If you install LfjOpauth using `composer`, the Opauth dependecy is automatically resolved, but you still must provide at least one strategy.
+To install the LfjOpauth module, you need to add `"lorenzoferrarajr/lfj-opauth": "dev-master"` to the `require` list of your project's `composer.json` file.
+
+To install the [Opauth](https://github.com/opauth) strategy, you need find the required 
+package on [Packagist](https://packagist.org/search/?q=opauth) or on [GitHub](https://github.com/opauth) and add it to the `require` 
+list of your project's `composer.json` file.
+
+This is an example of a modified `composer.json` which includes the LfjOpauth module and the Facebook strategy:
+
+```javascript
+{
+    "name": "zendframework/skeleton-application",
+    "description": "Skeleton Application for ZF2",
+    "require": {
+        "php": ">=5.3.3",
+        "zendframework/zendframework": ">2.2.0rc1",
+        "lorenzoferrarajr/lfj-opauth": "dev-master",
+        "opauth/facebook": "0.2.1"
+   }
+}
+```
+
+The example includes the installation of the Facebook Opauth strategy. More info on Opauth strategies can be found on GitHub:
+
+- [opauth-facebook](https://github.com/opauth/facebook)
+- [opauth-twitter](https://github.com/opauth/twitter)
+- [more of them...](https://github.com/opauth)
+
+Installing LfjOpauth using `composer`, the Opauth dependecy is automatically resolved, but you still must provide at least one strategy.
+
+Next, you need to add `LfjOpauth` to the `modules` list in the `config/application.config.php` file of your Zend Framework 2 project.
+
+This is an example:
+
+```php
+<?php
+return array(
+    'modules' => array(
+        'LfjOpauth',
+        'Application',
+    ),
+    // more code
+);
+```
 
 Configuration
 -----
@@ -67,8 +109,8 @@ and to logout using:
 
 For the two demo Facebook application described in the example configuration, you should use
 
-- http://example.com/usa2012/login/facebook
-- http://example.com/usa2012/login/second_facebook_app
+- http://example.com/user/login/facebook
+- http://example.com/user/login/second_facebook_app
 
 as value of the **Website with Facebook Login, Site URL** option.
 
