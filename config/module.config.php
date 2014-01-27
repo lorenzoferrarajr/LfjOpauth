@@ -24,8 +24,7 @@ return array(
                         'provider' => '[a-zA-Z][a-zA-Z0-9_-]*'
                     ),
                     'defaults' => array(
-                        '__NAMESPACE__' => 'LfjOpauth\Controller',
-                        'controller'    => 'Logout',
+                        'controller'    => 'LfjOpauth\Controller\Logout',
                         'action'        => 'logout'
                     )
                 )
@@ -39,8 +38,7 @@ return array(
                         'oauth_callback' => '[a-zA-Z][a-zA-Z0-9_-]*'
                     ),
                     'defaults' => array(
-                        '__NAMESPACE__' => 'LfjOpauth\Controller',
-                        'controller'    => 'Login',
+                        'controller'    => 'LfjOpauth\Controller\Login',
                         'action'        => 'redirectAndReturn'
                     )
                 )
@@ -53,8 +51,7 @@ return array(
                         'provider'  => '[a-zA-Z][a-zA-Z0-9_-]*'
                     ),
                     'defaults' => array(
-                        '__NAMESPACE__' => 'LfjOpauth\Controller',
-                        'controller'    => 'Login',
+                        'controller'    => 'LfjOpauth\Controller\Login',
                         'action'        => 'callback'
                     )
                 )
@@ -64,8 +61,7 @@ return array(
                 'options' => array(
                     'route'    => '/user/opauth/check',
                     'defaults' => array(
-                        '__NAMESPACE__' => 'LfjOpauth\Controller',
-                        'controller'    => 'Check',
+                        'controller'    => 'LfjOpauth\Controller\Check',
                         'action'        => 'check'
                     )
                 )
