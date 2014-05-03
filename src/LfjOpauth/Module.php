@@ -17,13 +17,6 @@ class Module implements ConfigProviderInterface, ServiceProviderInterface
                     $config = $sm->get('Config');
 
                     return isset($config['lfjopauth']) ? $config['lfjopauth'] : array();
-                },
-                'opauth_service' => function($sm) {
-                    $opauth = new \LfjOpauth\Service\OpauthService();
-                    $router = $sm->get('router');
-                    $opauth->setRouter($router);
-
-                    return $opauth;
                 }
              )
         );

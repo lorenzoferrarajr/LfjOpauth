@@ -5,6 +5,9 @@ return array(
         'invokables' => array(
             'lfjopauth_auth_service' => 'Zend\Authentication\AuthenticationService',
             'lfjopauth_auth_adapter' => 'LfjOpauth\Authentication\Adapter'
+        ),
+        'factories' => array(
+            'opauth_service' => 'LfjOpauth\Service\OpauthServiceFactory'
         )
     ),
     'controllers' => array(
