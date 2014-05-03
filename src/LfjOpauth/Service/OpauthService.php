@@ -3,10 +3,17 @@
 namespace LfjOpauth\Service;
 
 use Zend\ServiceManager\ServiceLocatorAwareInterface;
+use Zend\EventManager\EventManagerAwareInterface;
+use Zend\EventManager\EventManagerInterface;
 use Opauth;
 
-class OpauthService implements ServiceLocatorAwareInterface
+class OpauthService implements ServiceLocatorAwareInterface, EventManagerAwareInterface
 {
+    /**
+     * @var EventManagerInterface
+     */
+    protected $eventManager;
+
     private $serviceLocator;
     private $options;
     private $router;
@@ -137,5 +144,26 @@ class OpauthService implements ServiceLocatorAwareInterface
     public function setServiceLocator(\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator)
     {
         $this->serviceLocator = $serviceLocator;
+    }
+
+    /**
+     * @param  EventManagerInterface $eventManager
+     * @return void
+     */
+    public function setEventManager(EventManagerInterface $eventManager)
+    {
+        $eventManager->addIdentifiers(array(
+            get_called_class()
+        ));
+
+        $this->eventManager = $eventManager;
+    }
+
+    /**
+     * @return EventManagerInterface
+     */
+    public function getEventManager()
+    {
+        return $this->eventManager;
     }
 }

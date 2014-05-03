@@ -12,6 +12,7 @@ class OpauthServiceFactory implements FactoryInterface
     {
         $opauth = new OpauthService();
         $router = $serviceLocator->get('router');
+        $opauth->setEventManager($serviceLocator->get('EventManager'));
         $opauth->setRouter($router);
 
         return $opauth;
