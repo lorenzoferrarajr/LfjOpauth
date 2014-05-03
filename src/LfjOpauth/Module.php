@@ -2,8 +2,6 @@
 
 namespace LfjOpauth;
 
-use Zend\ModuleManager\ModuleManager;
-use Zend\ModuleManager\Feature\AutoloaderProviderInterface;
 use Zend\ModuleManager\Feature\ConfigProviderInterface;
 use Zend\ModuleManager\Feature\ServiceProviderInterface;
 use Zend\EventManager\EventInterface as Event;
