@@ -46,16 +46,12 @@ class OpauthService implements ServiceLocatorAwareInterface, EventManagerAwareIn
         $authenticationResult = $authenticationService->authenticate($authAdapter);
 
         $data = array(
-            'result'   => false,
             'provider' => $provider,
+            'result'   => $authenticationResult->isValid(),
             'code'     => $authenticationResult->getCode(),
             'messages' => $authenticationResult->getMessages(),
             'debug'    => $authenticationResult
         );
-
-        if ($authenticationResult->isValid()) {
-            $data['result'] = true;
-        }
 
         return $data;
     }
