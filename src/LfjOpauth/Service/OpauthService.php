@@ -33,32 +33,31 @@ class OpauthService implements ServiceLocatorAwareInterface, EventManagerAwareIn
     {
         $opauth = new Opauth($this->getOptions($provider), false);
 
-        $auth = $this->getServiceLocator()->get('lfjopauth_auth_service');
+        /** @var \Zend\Authentication\AuthenticationService $auth */
+        $authenticationService = $this->getServiceLocator()->get('lfjopauth_auth_service');
 
+        /** @var \LfjOpauth\Authentication\Adapter $authAdapter */
         $authAdapter = $this->getServiceLocator()->get('lfjopauth_auth_adapter');
         $authAdapter->setOpauth($opauth);
         $authAdapter->setOpauthProvider($provider);
-        $authAdapter->setAuthenticationService($auth);
+        $authAdapter->setAuthenticationService($authenticationService);
 
-        $result = $auth->authenticate($authAdapter);
+        /** @var \Zend\Authentication\Result $result */
+        $authenticationResult = $authenticationService->authenticate($authAdapter);
 
-        if (!$result->isValid()) {
-            return array(
-                'provider' => $provider,
-                'result' => false,
-                'code' => $result->getCode(),
-                'messages' => $result->getMessages(),
-                'debug' => $result
-            );
+        $data = array(
+            'result'   => false,
+            'provider' => $provider,
+            'code'     => $authenticationResult->getCode(),
+            'messages' => $authenticationResult->getMessages(),
+            'debug'    => $authenticationResult
+        );
+
+        if ($authenticationResult->isValid()) {
+            $data['result'] = true;
         }
 
-        return array(
-            'provider' => $provider,
-            'result' => true,
-            'code' => $result->getCode(),
-            'messages' => $result->getMessages(),
-            'debug' => $result
-        );
+        return $data;
     }
 
     public function setRouter($router)
