@@ -114,6 +114,66 @@ For the two demo Facebook application described in the example configuration, yo
 
 as value of the **Website with Facebook Login, Site URL** option.
 
+Events
+-----
+
+The `LfjOpauth\Service\OpauthService` triggers the `LfjOpauth\LfjOpauthEvent::EVENT_LOGIN_CALLBACK` event after the callback is processed. **Be aware** that the `LfjOpauth\LfjOpauthEvent::EVENT_LOGIN_CALLBACK` event is alwais triggered, even when the login process fails. Use the available event parameters to implement result checking.
+
+The event contains three parameters:
+
+- `authenticationService`: a `Zend\Authentication\Result` instance
+- `authenticationResult`: a `Zend\Authentication\AuthenticationService` instance
+- `provider`: is the provider used to try the login (example: facebook, google)
+
+and its target is an instance of `LfjOpauth\Service\OpauthService`.
+
+As en example on how to attach to the event, please refer to the following code.
+
+```php
+namespace Application;
+
+use Zend\EventManager\EventInterface;
+use Zend\Mvc\ModuleRouteListener;
+use Zend\Mvc\MvcEvent;
+
+class Module
+{
+    public function onBootstrap(MvcEvent $e)
+    {
+        $eventManager        = $e->getApplication()->getEventManager();
+        $moduleRouteListener = new ModuleRouteListener();
+        $moduleRouteListener->attach($eventManager);
+
+        $sharedEventManager = $eventManager->getSharedManager();
+
+        $sharedEventManager->attach('LfjOpauth\Service\OpauthService', \LfjOpauth\LfjOpauthEvent::EVENT_LOGIN_CALLBACK, function(EventInterface $e) {
+
+            /** @var \Zend\Authentication\Result $result */
+            $authenticationResult = $e->getParam('authenticationResult');
+
+            /** @var \Zend\Authentication\AuthenticationService $authenticationService */
+            $authenticationService = $e->getParam('authenticationService');
+
+            /** @var \LfjOpauth\Service\OpauthService $target */
+            $target = $e->getTarget();
+
+            $provider = $e->getParam('provider');
+
+            /*
+            var_dump(get_class($e->getTarget()));
+            var_dump($e->getParam('provider'));
+            var_dump('$authenticationResult->isValid()', $authenticationResult->isValid());
+            var_dump('$authenticationService->hasIdentity()', $authenticationService->hasIdentity());
+            var_dump('$authenticationService->getIdentity()', $authenticationService->getIdentity());
+            var_dump('$authenticationResult->getCode()', $authenticationResult->getCode());
+            var_dump('$authenticationResult->getIdentity()', $authenticationResult->getIdentity());
+            var_dump('$authenticationResult->getMessages()', $authenticationResult->getMessages());
+            */
+
+        }, 100);
+    }
+```
+
 Custom callback urls
 -----
 
