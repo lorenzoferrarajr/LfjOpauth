@@ -20,8 +20,7 @@ To use the module you need to:
 To install the LfjOpauth module, you need to add `"lorenzoferrarajr/lfj-opauth": "dev-master"` to the `require` list of your project's `composer.json` file.
 
 To install the [Opauth](https://github.com/opauth) strategy, you need find the required 
-package on [Packagist](https://packagist.org/search/?q=opauth) or on [GitHub](https://github.com/opauth) and add it to the `require` 
-list of your project's `composer.json` file.
+package on [Packagist](https://packagist.org/search/?q=opauth) or on [GitHub](https://github.com/opauth) and add it to the `require` list of your project's `composer.json` file.
 
 This is an example of a modified `composer.json` which includes the LfjOpauth module and the Facebook strategy:
 
