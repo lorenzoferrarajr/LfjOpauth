@@ -53,6 +53,12 @@ class OpauthService implements ServiceLocatorAwareInterface, EventManagerAwareIn
             'debug'    => $authenticationResult
         );
 
+        $this->getEventManager()->trigger(\LfjOpauth\LfjOpauthEvent::EVENT_LOGIN_CALLBACK, $this, array(
+            'authenticationService' => $authenticationService,
+            'authenticationResult'  => $authenticationResult,
+            'provider' => $provider
+        ));
+
         return $data;
     }
 
