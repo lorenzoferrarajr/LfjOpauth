@@ -3,11 +3,11 @@
 return array(
     'service_manager' => array(
         'invokables' => array(
-            'lfjopauth_auth_service' => 'Zend\Authentication\AuthenticationService',
             'lfjopauth_auth_adapter' => 'LfjOpauth\Authentication\Adapter'
         ),
         'factories' => array(
-            'opauth_service' => 'LfjOpauth\Service\OpauthServiceFactory'
+            'lfjopauth_auth_service' => 'LfjOpauth\Authentication\AuthenticationServiceFactory',
+            'opauth_service'         => 'LfjOpauth\Service\OpauthServiceFactory'
         )
     ),
     'controllers' => array(
