@@ -2,10 +2,8 @@
 
 return array(
     'service_manager' => array(
-        'invokables' => array(
-            'lfjopauth_auth_adapter' => 'LfjOpauth\Authentication\Adapter'
-        ),
         'factories' => array(
+            'lfjopauth_auth_adapter' => 'LfjOpauth\Authentication\AdapterFactory',
             'lfjopauth_auth_service' => 'LfjOpauth\Authentication\AuthenticationServiceFactory',
             'opauth_service'         => 'LfjOpauth\Service\OpauthServiceFactory'
         )
