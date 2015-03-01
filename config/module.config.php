@@ -3,7 +3,7 @@
 return array(
     'service_manager' => array(
         'factories' => array(
-            'lfjopauth_auth_adapter' => 'LfjOpauth\Authentication\AdapterFactory',
+            'lfjopauth_auth_adapter' => 'LfjOpauth\Authentication\AuthenticationAdapterFactory',
             'lfjopauth_auth_service' => 'LfjOpauth\Authentication\AuthenticationServiceFactory',
             'opauth_service'         => 'LfjOpauth\Service\OpauthServiceFactory'
         )

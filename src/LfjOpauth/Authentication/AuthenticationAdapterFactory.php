@@ -2,10 +2,10 @@
 
 namespace LfjOpauth\Authentication;
 
-use LfjOpauth\Authentication\Adapter as AuthenticationAdapter;
+use LfjOpauth\Authentication\AuthenticationAdapter;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
-class AdapterFactory
+class AuthenticationAdapterFactory
 {
     public function __invoke(ServiceLocatorInterface $services)
     {

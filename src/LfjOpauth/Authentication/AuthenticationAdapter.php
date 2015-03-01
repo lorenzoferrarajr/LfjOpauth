@@ -5,7 +5,7 @@ namespace LfjOpauth\Authentication;
 use Zend\Authentication\Adapter\AdapterInterface;
 use Zend\Authentication\Result as AuthenticationResult;
 
-class Adapter implements AdapterInterface
+class AuthenticationAdapter implements AdapterInterface
 {
     public $opauthReponse;
     public $opauthProvider;
