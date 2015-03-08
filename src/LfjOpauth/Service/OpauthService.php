@@ -2,6 +2,8 @@
 
 namespace LfjOpauth\Service;
 
+use LfjOpauth\Provider\OptionProvider;
+use LfjOpauth\Provider\OptionsProvider;
 use Zend\ServiceManager\ServiceLocatorAwareInterface;
 use Zend\EventManager\EventManagerAwareInterface;
 use Zend\EventManager\EventManagerInterface;
@@ -72,10 +74,17 @@ class OpauthService implements ServiceLocatorAwareInterface, EventManagerAwareIn
         return $this->router;
     }
 
+    /**
+     * @param $options Array|OptionsProvider
+     * @return $this
+     */
     public function setOptions($options)
     {
-        $this->options = $options;
-
+        if($options instanceof OptionsProvider) {
+            $this->options = $options->getOptions();
+        } else {
+            $this->options = $options;
+        }
         return $this;
     }
 
