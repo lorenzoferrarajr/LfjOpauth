@@ -2,8 +2,7 @@
 
 namespace LfjOpauth\Service;
 
-use LfjOpauth\Provider\OptionProvider;
-use LfjOpauth\Provider\OptionsProvider;
+use LfjOpauth\Provider\OptionsProviderInterface;
 use Zend\ServiceManager\ServiceLocatorAwareInterface;
 use Zend\EventManager\EventManagerAwareInterface;
 use Zend\EventManager\EventManagerInterface;
@@ -75,23 +74,20 @@ class OpauthService implements ServiceLocatorAwareInterface, EventManagerAwareIn
     }
 
     /**
-     * @param $options Array|OptionsProvider
+     * @param $options Array|OptionsProviderInterface
+     * @param $provider
      * @return $this
      */
-    public function setOptions($options)
+    public function setOptions($options, $provider = null)
     {
-        if($options instanceof OptionsProvider) {
-            $this->options = $options->getOptions();
-        } else {
-            $this->options = $options;
-        }
+        $this->options = $options instanceof OptionsProviderInterface ? $options->getOptions($provider) : $options;
         return $this;
     }
 
     public function getOptions($provider)
     {
         if ($this->options === null || !is_array($this->options)) {
-            $this->setOptions($this->getServiceLocator()->get('lfjopauth_module_options'));
+            $this->setOptions($this->getServiceLocator()->get('lfjopauth_module_options'), $provider);
         }
 
         $callbackUrlParams = array_replace(array('provider' => $provider), $this->getCallbackUrlNameParams());
