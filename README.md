@@ -94,6 +94,15 @@ The configuration is pretty much the same as the [Opauth configuration](https://
 
 The `check_controller_enabled` flag enables or disables access to `CheckController`.
 
+Alternatively, an option provider can be set using the `Service Manager` to replace the current configuration loader.
+To do that, you just have to :
+
+- Register a service named `lfjopauth_module_options`,
+- Implement the interface `LfjOpauth\Provider\OptionsProviderInterface`,
+- And return a configuration `array` as above.
+
+This can be usefull if you want to load your configuration from database or generate configuration for complexe cases.
+
 Login and callback urls
 -----
 
